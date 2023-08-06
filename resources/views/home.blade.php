@@ -3,5 +3,5 @@
 @section('content')
 <div class="container-fluid">
             <div id="hello-react"></div>
-    </div>  
+</div>
 @endsection

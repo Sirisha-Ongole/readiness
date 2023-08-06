@@ -8,7 +8,6 @@ import { getTasks } from '../Redux/actions';
 
 
 export default function HelloReact() {
-
   useEffect(() => {
         store.dispatch(getTasks());
   }, [])
@@ -20,7 +19,6 @@ export default function HelloReact() {
     </Provider>
     </>
   );
-
 }
 
 ReactDOM.render(

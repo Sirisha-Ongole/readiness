@@ -44,7 +44,6 @@ class TaskController extends Controller
 //         'data.attributes.duration' => '',
 //     ]);
 
-   
 //     $task = request()->user()->tasks()->create($data['data']['attributes']);
 //     return new TaskResource($task);
 //    }

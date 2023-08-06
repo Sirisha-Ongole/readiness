@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+const { object } = require('prop-types');
 
 /*
  |--------------------------------------------------------------------------
@@ -11,6 +12,19 @@ const mix = require('laravel-mix');
  |
  */
 
+ 
 mix.js('resources/js/app.js', 'public/js')
     .react()
     .sass('resources/sass/app.scss', 'public/css');
+
+    //include this to fix the error: "Module not found: Error: Can't resolve 'fs' in '\resources\js'"
+    mix.webpackConfig({
+      resolve: { fallback: { "fs" : false } }
+    
+    } }
+    mix.webpackConfig({
+      resolve: {  fallback: {  "https": false,"http": false, "tls": false, "path": false,"net": false, "os" : false,"stream": false, "constants": false } },
+    externals: {
+      fs: "commonjs fs"
+    }
+    });

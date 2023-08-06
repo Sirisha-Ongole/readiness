@@ -1,6 +1,6 @@
 import * as actions from "./actionTypes";
 import axios from "axios";
-import store, { taskSelector } from "./store";
+import {store, taskSelector } from "./store";
 
 
 export const getTasks = () => async (dispatch) => {
@@ -21,3 +21,14 @@ export const getTasks = () => async (dispatch) => {
         });
     }
 };
+
+const setCurrentTaskDetails = (index, tasklist) => {
+    const res = {
+      taskIndex : index,
+      taskDetails : tasklist[index].data.attributes
+    }
+    store.dispatch({
+      type: actions.set_current_task,
+      payload: res,
+    });  
+  }
