@@ -64,6 +64,9 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
 ## To start, execute below commands
-npm install (one time)
-npm run dev
-npm run watch (auto-load react changes)
+- composer install (one time)
+- composer update (one time)
+- npm install (one time)
+- npm run dev
+- npm run watch (auto-load react changes)
+- php artisan serve
