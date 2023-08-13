@@ -23,7 +23,7 @@ store.subscribe(() => {
       // }
   });
 
-  export const taskSelector = (state) => state.taskReducer.tasks.data;
+  export const taskSelector = (state) => state.taskReducer.tasks;
   //export const startTimeSelector = (state) => state.currentTaskReducer;
   export const currentTaskDetails = (state) => {
     if(state.currentTaskReducer.currentTask != undefined){

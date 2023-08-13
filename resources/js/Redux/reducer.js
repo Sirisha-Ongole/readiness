@@ -1,3 +1,4 @@
+
 import * as actions from "./actionTypes";
 
 const taskIntialState = {
@@ -7,7 +8,10 @@ const taskIntialState = {
     };
 
 const currentTaskIntialState = {
-    currentTask: {},
+    taskDetails: {
+        pomodoro_template: {},
+    },
+    taskIndex: null,
 }
 
     export const currentTaskReducer =  (state = currentTaskIntialState , action) => {
@@ -15,17 +19,11 @@ const currentTaskIntialState = {
         
         switch (type) {
             case actions.set_current_task:
-                return {...state, currentTask: payload};
+                return {...state, taskDetails: {...payload.taskDetails, pomodoro_template:payload.taskDetails.pomodoro_template}, taskIndex: payload.taskIndex};
             case actions.Pomo_Set:
-                return {
-                    ...state,
-                    currentTask: payload,
-                };
+               return {...state, taskDetails: {...payload.taskDetails, pomodoro_template:payload.taskDetails.pomodoro_template}, taskIndex: payload.taskIndex};
             case actions.Pomo_Rest:
-                return {
-                    ...state,
-                    currentTask: payload,
-                };
+                return {...state, taskDetails: {...payload.taskDetails, pomodoro_template:payload.taskDetails.pomodoro_template}, taskIndex: payload.taskIndex};
             default:
                 return state;
         }
@@ -39,10 +37,9 @@ const currentTaskIntialState = {
         case actions.Get_Task:
             const ret =  {
                 ...state,
-                tasks: payload,
+                tasks: payload.data,
                 loading: false,
             };
-            console.log(ret);
             return ret;
         case actions.Task_ERROR:
             return {

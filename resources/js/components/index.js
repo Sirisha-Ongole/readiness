@@ -6,7 +6,6 @@ import { store } from '../Redux/store';
 import { Provider } from 'react-redux';
 import { getTasks } from '../Redux/actions';
 
-
 export default function HelloReact() {
   useEffect(() => {
         store.dispatch(getTasks());

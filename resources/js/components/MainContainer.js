@@ -1,12 +1,12 @@
 import React from 'react';
 import { AddTaskView } from './Task/AddTaskView';
 import { GraphView } from './Graph/GraphView';
-import { PomoTimer } from './Task/PomoTimer';
+import { PomoView } from './Task/PomoView';
 
 export const MainContainer = () => {
   return (
-    <div class="container-fluid">
-      <PomoTimer></PomoTimer>
+    <div className="container-fluid">
+      <PomoView></PomoView>
       <AddTaskView></AddTaskView>
       <GraphView></GraphView>
     </div>  

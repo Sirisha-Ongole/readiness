@@ -6,7 +6,6 @@ import {store, taskSelector } from "./store";
 export const getTasks = () => async (dispatch) => {
     try {
         const res = await axios.get("api/tasks");
-        console.log(res.data);
         dispatch({
             type: actions.Get_Task,
             payload: res.data,
@@ -22,7 +21,7 @@ export const getTasks = () => async (dispatch) => {
     }
 };
 
-const setCurrentTaskDetails = (index, tasklist) => {
+export const setCurrentTaskDetails = (index, tasklist) => {
     const res = {
       taskIndex : index,
       taskDetails : tasklist[index].data.attributes

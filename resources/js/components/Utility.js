@@ -5,3 +5,7 @@ export const Utility = () => {
     <div>Utility</div>
   )
 }
+
+const date = new Date();
+date.setMinutes(date.getMinutes() + 240);
+export const showTime = date.getHours()+ ':' + date.getMinutes();
