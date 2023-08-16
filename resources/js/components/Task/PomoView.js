@@ -1,19 +1,19 @@
-import React, { createRef, useRef } from "react";
+import React, { createRef, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Button,Tab,Tabs} from "react-bootstrap";
 import Countdown from "react-countdown";
-import { rendertime } from "./PomoTimerFormat";
 import { store } from "../../Redux/store";
+import { zeroPad } from "react-countdown";
 
 export const PomoView = () => {
-
-    const handleResetClick = (e) => {
-        tabRef.current[e.target.value].current.getApi();
-        tabRef.current[e.target.value].current.stop();
+    const handleResetClick = (tab) => {
+        tab.current.getApi();
+        tab.current.stop();
     };
-    const handleStartClick = (e) => {
-        tabRef.current[e.target.value].current.getApi();
-        tabRef.current[e.target.value].current.start();
+    const handleStartClick = (tab) => {
+        console.log(tab.current);
+        tab.current.getApi();
+        tab.current.start();
     };
 
     const currentPomoDetails = useSelector((state) => state.currentTaskReducer.taskDetails.pomodoro_template.attributes);
@@ -26,16 +26,69 @@ export const PomoView = () => {
     filteredPomoDetails = filteredPomoDetails && filteredPomoDetails.map((names, i) => [names[0], names[1] * 60000]);
     console.log(filteredPomoDetails);
 
-    const tabRef = useRef([]);
-    tabRef.current = filteredPomoDetails && filteredPomoDetails.map((names, i) => (tabRef.current && tabRef.current[i]) ?? React.createRef());
-    console.log(tabRef.current);
+    
+
+    //set tabRef on update of CurrentTaskDetails
+    let tabRef = useRef();
+    useEffect(() => {
+        tabRef.current = tabRef.current ?? React.createRef();
+        tabRef.current.getApi();
+        tabRef.current.stop();
+        console.log("set tabRef on update of CurrentTaskDetails");
+        console.log(tabRef.current);
+    }, [CurrentTaskDetails]);
+
+    const Completionist1 = () => <Countdown date={Date.now() + 10000} renderer={rendertime} autoStart={false} ref={tabRef} ></Countdown>;
+    const Completionist2 = () => <Countdown date={Date.now() + 10000} renderer={rendertime2} autoStart={true} ref={tabRef} ></Countdown>;
+    const Completionist3 = () => <Countdown date={Date.now() + 10000} renderer={rendertime3} autoStart={true} ref={tabRef} ></Countdown>;
+    const rendertime = ({ hours, minutes, seconds, completed }) => {  
+        if (completed) {    
+            return <Completionist2 />;
+        }
+        return (
+            <>
+                <div>PomoDoro Timer</div>
+                <div>
+                    {zeroPad(minutes)} :
+                    {zeroPad(seconds)}
+                </div>
+            </>
+        ); 
+    
+    };
+    const rendertime2 = ({ hours, minutes, seconds, completed }) => {  
+        if (completed) {  
+            return <Completionist3 />;
+        }
+        return (
+            <>
+                <div>Short Break</div>
+                <div>
+                    {zeroPad(minutes)} :
+                    {zeroPad(seconds)}
+                </div>
+            </>
+        ); 
+    
+    };
+    const rendertime3 = ({ hours, minutes, seconds, completed }) => {  
+        if (completed) {    
+            return <div>Completed</div>
+        }
+        return (
+            <>
+             <div>Long Break</div>
+                <div>
+                    {zeroPad(minutes)} :
+                    {zeroPad(seconds)}
+                </div>
+            </>
+        ); 
+    
+    };
 
     return (
         <>
-          <Tabs defaultActiveKey="cycle_time" id="uncontrolled-tab-example" className="mb-3">
-            {filteredPomoDetails &&
-               filteredPomoDetails.map((names, i) => (
-                    <Tab eventKey={names[0]} title={names[0]}>
                         <div className="container-fluid">
                             <div className="row">
                                 <div className="col-12">
@@ -46,7 +99,7 @@ export const PomoView = () => {
                                 <div className="col-12">
                                     <div className="text-center">
                                         <h1>
-                                        <Countdown date={Date.now() + names[1]} renderer={rendertime} autoStart={false} ref={tabRef.current[i]} />
+                                        <Completionist1 />
                                         </h1>
                                     </div>
                                 </div>
@@ -54,15 +107,12 @@ export const PomoView = () => {
                             <div className="row">
                                 <div className="col-12">
                                     <div className="text-center">
-                                    <Button value={i} onClick={handleStartClick} variant="primary" className="m-2">Start</Button>
-                                    <Button value={i} onClick={handleResetClick} variant="secondary" className="m-2">Rest</Button>
+                                    <Button value={0} onClick={(e) => handleStartClick(tabRef)} variant="primary" className="m-2">Start</Button>
+                                    <Button value={0} onClick={(e) => handleResetClick(tabRef)} variant="secondary" className="m-2">Rest</Button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </Tab>
-                ))}
-                </Tabs>
         </>
     );
     };
