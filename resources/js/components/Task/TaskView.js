@@ -1,11 +1,15 @@
 
-    import { Card, Form } from "react-bootstrap";
+    import { Button, Card, Form } from "react-bootstrap";
     import React, { useRef, useState, useEffect} from "react";
     import * as actions from "../../Redux/actions";
     import { taskSelector, store } from "../../Redux/store";
-
-
+    import AddTask from "./AddTask";
+    
      export const TaskView = () => {
+
+        const [showModal, updateshowModal] = useState(false);
+        const handleModalClose = () => updateshowModal(false);
+        const handleShowModal = () => updateshowModal(true);
 
           let [tasklist, updateTasksList] = useState();
     
@@ -33,15 +37,18 @@
                     <Card.Header>{task.data.attributes.body}</Card.Header>
                     <Card.Body>
                     <Card.Title>
-                        <Form><Form.Check type="checkbox" label={`Duration :${task.data.attributes.duration} mins`}/></Form></Card.Title>
+                        <Button onClick={handleShowModal}>Edit Task</Button>
+                        <Form><Form.Check type="checkbox" label={`Duration :${task.data.attributes.duration} mins`}/></Form>
+                        </Card.Title>
                     <Card.Text>
                         {
                         task.data.attributes.pomodoro_template.type == 'pomodoro' ? <div className="ms-5">Promodoro Set timings {task.data.attributes.pomodoro_template.attributes.cycle_time} mins</div> : <div></div>
                         }
-                      </Card.Text>
+                    </Card.Text>
                     </Card.Body>
-                  </Card>
+                </Card>
                 )}
+                <AddTask showModal={showModal} handleModalClose={handleModalClose}  page={"edit"} />
         </>
     );
     };

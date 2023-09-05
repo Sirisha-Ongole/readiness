@@ -14,17 +14,16 @@ class TaskController extends Controller
     public $successStatus = 200;
     public function index(){
 
-        //$task = Task::all()->first();$user = Auth::user();
         $user = Auth::user(); 
         $tasks =new TaskCollectionResource(Task::all());
         return $tasks; 
     
+        //$task = Task::all()->first();$user = Auth::user();
     }
    public function store(Request $request){
 
-    $input = $request->all();
-   
-    $validator = Validator::make($input, [
+    $input = json_decode($request->getContent(), true);
+    $validator = Validator::make($input['taskData'], [
         'pt_id' => 'required',
         'body' => 'required',
         'duration' => 'required'
@@ -34,19 +33,8 @@ class TaskController extends Controller
         return  response()->json(['error'=>'Unauthorised'], 401);        
     }
 
-    $task = request()->user()->tasks()->create($input);
+    $task = request()->user()->tasks()->create($input['taskData']);
     return new TaskResource($task);
-
-
-//     $data = request()->validate([
-//         'data.attributes.pt_id' => '',
-//         'data.attributes.body' => '',
-//         'data.attributes.duration' => '',
-//     ]);
-
-//     $task = request()->user()->tasks()->create($data['data']['attributes']);
-//     return new TaskResource($task);
-//    }
 
 }
 }

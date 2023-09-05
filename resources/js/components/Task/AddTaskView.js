@@ -1,14 +1,20 @@
 import AddTask from "./AddTask";
 import React, { useEffect, useState } from 'react'
 import { Button } from 'react-bootstrap'
-import { TasksList } from "./TasksList";
 import { TaskView } from "./TaskView";
-
+import * as actions from "../../Redux/actionTypes";
+import { store } from "../../Redux/store";
 
 export const AddTaskView = () => {
 
     const [showModal, updateshowModal] = useState(false);
-    const handleModalClose = () => updateshowModal(false);
+    const handleModalClose = () => {
+        updateshowModal(false);
+        store.dispatch({
+            type: actions.DB_TaskandPomo_reset,
+            payload: {}
+          });
+    };
     const handleShowModal = () => updateshowModal(true);
 
     return (
@@ -37,7 +43,7 @@ export const AddTaskView = () => {
                     </div>
                 </div>
             </div>
-            <AddTask showModal={showModal} handleModalClose={handleModalClose}  />
+            <AddTask showModal={showModal} handleModalClose={handleModalClose} page={"add"}  />
         </>
     );
 };

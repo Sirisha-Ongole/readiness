@@ -16,20 +16,30 @@ class PomodoroController extends Controller
 
     public function store(Request $request){
 
-        $input = $request->all();
-        $validator = Validator::make($input, [
+        $input = json_decode($request->getContent(), true);
+        $validator = Validator::make($input['pomoData'], [
             'cycle_time' => 'required',
             'short_break' => 'required',
             'long_break' => 'required',
             'cycle_count_lb' => 'required'
         ]);
 
-
         if($validator->fails()){
             return  response()->json(['error'=>'Unauthorised'], 401);        
         }
+        
+        $pomodoro = Pomodoro::where('cycle_time', $input['pomoData']['cycle_time'])
+                            ->where('short_break', $input['pomoData']['short_break'])
+                            ->where('long_break', $input['pomoData']['long_break'])
+                            ->where('cycle_count_lb', $input['pomoData']['cycle_count_lb'])
+                            ->first();
+        if($pomodoro){
+            return new PomodoroResource($pomodoro);
+        }else {
+            $newPomodoro = Pomodoro::create($input['pomoData']);
+            return new PomodoroResource($newPomodoro);
+        }
 
-        $task = Pomodoro::create($input);
-        return new PomodoroResource($task);
+       
     }
 }

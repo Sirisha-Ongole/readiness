@@ -11,7 +11,6 @@ export const PomoView = () => {
         tab.current.stop();
     };
     const handleStartClick = (tab) => {
-        console.log(tab.current);
         tab.current.getApi();
         tab.current.start();
     };
@@ -24,26 +23,21 @@ export const PomoView = () => {
     filter((pomo, i) => pomo[0] != "pmodoro_id" && pomo[0] != "cycle_count");
 
     filteredPomoDetails = filteredPomoDetails && filteredPomoDetails.map((names, i) => [names[0], names[1] * 60000]);
+
     console.log(filteredPomoDetails);
-
-    
-
-    //set tabRef on update of CurrentTaskDetails
     let tabRef = useRef();
     useEffect(() => {
         tabRef.current = tabRef.current ?? React.createRef();
         tabRef.current.getApi();
         tabRef.current.stop();
-        console.log("set tabRef on update of CurrentTaskDetails");
-        console.log(tabRef.current);
     }, [CurrentTaskDetails]);
 
-    const Completionist1 = () => <Countdown date={Date.now() + 10000} renderer={rendertime} autoStart={false} ref={tabRef} ></Countdown>;
-    const Completionist2 = () => <Countdown date={Date.now() + 10000} renderer={rendertime2} autoStart={true} ref={tabRef} ></Countdown>;
-    const Completionist3 = () => <Countdown date={Date.now() + 10000} renderer={rendertime3} autoStart={true} ref={tabRef} ></Countdown>;
-    const rendertime = ({ hours, minutes, seconds, completed }) => {  
+    const PomoTimer = () => <Countdown date={Date.now() + 10000} renderer={pomotimeRender} autoStart={false} ref={tabRef} ></Countdown>;
+    const ShortBreak = () => <Countdown date={Date.now() + 10000} renderer={shortBreakRender} autoStart={true} ref={tabRef} ></Countdown>;
+    const LongBreak = () => <Countdown date={Date.now() + 10000} renderer={longBreakRender} autoStart={true} ref={tabRef} ></Countdown>;
+    const pomotimeRender = ({ hours, minutes, seconds, completed }) => {  
         if (completed) {    
-            return <Completionist2 />;
+            return <ShortBreak />;
         }
         return (
             <>
@@ -56,9 +50,9 @@ export const PomoView = () => {
         ); 
     
     };
-    const rendertime2 = ({ hours, minutes, seconds, completed }) => {  
+    const shortBreakRender = ({ hours, minutes, seconds, completed }) => {  
         if (completed) {  
-            return <Completionist3 />;
+            return <LongBreak />;
         }
         return (
             <>
@@ -71,7 +65,7 @@ export const PomoView = () => {
         ); 
     
     };
-    const rendertime3 = ({ hours, minutes, seconds, completed }) => {  
+    const longBreakRender = ({ hours, minutes, seconds, completed }) => {  
         if (completed) {    
             return <div>Completed</div>
         }
@@ -99,7 +93,7 @@ export const PomoView = () => {
                                 <div className="col-12">
                                     <div className="text-center">
                                         <h1>
-                                        <Completionist1 />
+                                        <PomoTimer />
                                         </h1>
                                     </div>
                                 </div>
