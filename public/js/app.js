@@ -11908,55 +11908,60 @@ function AddTask(_ref) {
     _useState2 = _slicedToArray(_useState, 2),
     alertStatus = _useState2[0],
     updatealertStatus = _useState2[1];
+  var newPomoID = _Redux_store__WEBPACK_IMPORTED_MODULE_4__.store.getState().addToDB.new_pmodoro_id;
+  var newTaskID = _Redux_store__WEBPACK_IMPORTED_MODULE_4__.store.getState().addToDB.new_task_id;
+  var DBstatus = _Redux_store__WEBPACK_IMPORTED_MODULE_4__.store.getState().addToDB.status;
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(null),
+    _useState4 = _slicedToArray(_useState3, 2),
+    newptID = _useState4[0],
+    setNewptID = _useState4[1];
   var addTaskChangeEvent = function addTaskChangeEvent(field) {
     updateTaskInfo(_objectSpread(_objectSpread({}, taskInfo), field));
   };
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
       pt_id: "",
       body: "",
       duration: ""
     }),
-    _useState4 = _slicedToArray(_useState3, 2),
-    taskInfo = _useState4[0],
-    updateTaskInfo = _useState4[1];
+    _useState6 = _slicedToArray(_useState5, 2),
+    taskInfo = _useState6[0],
+    updateTaskInfo = _useState6[1];
   var addPomodoroChangeEvent = function addPomodoroChangeEvent(field) {
     updatePomoInfo(_objectSpread(_objectSpread({}, pomoInfo), field));
   };
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)({
       cycle_time: "",
       short_break: "",
       long_break: "",
       cycle_count_lb: ""
     }),
-    _useState6 = _slicedToArray(_useState5, 2),
-    pomoInfo = _useState6[0],
-    updatePomoInfo = _useState6[1];
+    _useState8 = _slicedToArray(_useState7, 2),
+    pomoInfo = _useState8[0],
+    updatePomoInfo = _useState8[1];
   var AddTasktoDB = function AddTasktoDB(pomoInfo, taskInfo) {
     _Redux_store__WEBPACK_IMPORTED_MODULE_4__.store.dispatch((0,_Redux_actions__WEBPACK_IMPORTED_MODULE_3__.addpomoDB)(pomoInfo));
     _Redux_store__WEBPACK_IMPORTED_MODULE_4__.store.subscribe(function () {
       var newPomoID = {
-        pt_id: _Redux_store__WEBPACK_IMPORTED_MODULE_4__.store.getState().addToDB.new_pmodoro_id
+        pt_id: newPomoID
       };
       updateTaskInfo(_objectSpread(_objectSpread({}, taskInfo), newPomoID));
     });
   };
   (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
-    updatealertStatus(_Redux_store__WEBPACK_IMPORTED_MODULE_4__.store.getState().addToDB.status);
-  }, [_Redux_store__WEBPACK_IMPORTED_MODULE_4__.store.getState().addToDB.status]);
+    updatealertStatus(DBstatus);
+  }, [DBstatus]);
   (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
-    if (_Redux_store__WEBPACK_IMPORTED_MODULE_4__.store.getState().addToDB.new_pmodoro_id == null) {
-      var newPomoID = {
-        pt_id: _Redux_store__WEBPACK_IMPORTED_MODULE_4__.store.getState().addToDB.new_pmodoro_id
+    if (newTaskID == null && newPomoID != null) {
+      var PomoID = {
+        pt_id: newPomoID
       };
-      updateTaskInfo(_objectSpread(_objectSpread({}, taskInfo), newPomoID));
+      updateTaskInfo(_objectSpread(_objectSpread({}, taskInfo), PomoID));
+      setNewptID(newPomoID);
     }
-    if (_Redux_store__WEBPACK_IMPORTED_MODULE_4__.store.getState().addToDB.new_pmodoro_id != null && _Redux_store__WEBPACK_IMPORTED_MODULE_4__.store.getState().addToDB.new_task_id == null) {
-      _Redux_store__WEBPACK_IMPORTED_MODULE_4__.store.dispatch((0,_Redux_actions__WEBPACK_IMPORTED_MODULE_3__.addtaskDB)(taskInfo));
-    } else {
-      //handleModalClose();
-      _Redux_store__WEBPACK_IMPORTED_MODULE_4__.store.dispatch((0,_Redux_actions__WEBPACK_IMPORTED_MODULE_3__.getTasks)());
-    }
-  }, [_Redux_store__WEBPACK_IMPORTED_MODULE_4__.store.getState().addToDB.new_pmodoro_id, _Redux_store__WEBPACK_IMPORTED_MODULE_4__.store.getState().addToDB.new_task_id]);
+  }, [newPomoID]);
+  (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
+    newPomoID != null && DBstatus == "success" && _Redux_store__WEBPACK_IMPORTED_MODULE_4__.store.dispatch((0,_Redux_actions__WEBPACK_IMPORTED_MODULE_3__.addtaskDB)(taskInfo)) && _Redux_store__WEBPACK_IMPORTED_MODULE_4__.store.dispatch((0,_Redux_actions__WEBPACK_IMPORTED_MODULE_3__.getTasks)());
+  }, [newptID]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], {
       show: showModal,
@@ -12370,17 +12375,17 @@ var PomoView = function PomoView() {
   filteredPomoDetails = filteredPomoDetails && filteredPomoDetails.map(function (names, i) {
     return [names[0], names[1] * 60000];
   });
-  console.log(filteredPomoDetails);
+  var cycle_time = filteredPomoDetails ? filteredPomoDetails[0][1] : 0;
+  var short_break_time = filteredPomoDetails ? filteredPomoDetails[2][1] : 0;
+  var long_break_time = filteredPomoDetails ? filteredPomoDetails[1][1] : 0;
   var tabRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)();
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var _tabRef$current;
-    tabRef.current = (_tabRef$current = tabRef.current) !== null && _tabRef$current !== void 0 ? _tabRef$current : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createRef();
-    tabRef.current.getApi();
-    tabRef.current.stop();
+    filteredPomoDetails && (tabRef.current = (_tabRef$current = tabRef.current) !== null && _tabRef$current !== void 0 ? _tabRef$current : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createRef(), tabRef.current.getApi(), tabRef.current.stop());
   }, [CurrentTaskDetails]);
   var PomoTimer = function PomoTimer() {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_countdown__WEBPACK_IMPORTED_MODULE_2__["default"], {
-      date: Date.now() + 10000,
+      date: Date.now() + cycle_time,
       renderer: pomotimeRender,
       autoStart: false,
       ref: tabRef
@@ -12388,7 +12393,7 @@ var PomoView = function PomoView() {
   };
   var ShortBreak = function ShortBreak() {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_countdown__WEBPACK_IMPORTED_MODULE_2__["default"], {
-      date: Date.now() + 10000,
+      date: Date.now() + short_break_time,
       renderer: shortBreakRender,
       autoStart: true,
       ref: tabRef
@@ -12396,7 +12401,7 @@ var PomoView = function PomoView() {
   };
   var LongBreak = function LongBreak() {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_countdown__WEBPACK_IMPORTED_MODULE_2__["default"], {
-      date: Date.now() + 10000,
+      date: Date.now() + long_break_time,
       renderer: longBreakRender,
       autoStart: true,
       ref: tabRef
@@ -12453,7 +12458,7 @@ var PomoView = function PomoView() {
     });
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    children: filteredPomoDetails ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
       className: "container-fluid",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
         className: "row",
@@ -12501,7 +12506,7 @@ var PomoView = function PomoView() {
           })
         })
       })]
-    })
+    }) : ""
   });
 };
 

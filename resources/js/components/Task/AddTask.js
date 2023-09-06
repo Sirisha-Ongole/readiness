@@ -9,7 +9,11 @@ import {store } from "../../Redux/store";
 function AddTask({showModal, handleModalClose, ...props}) {
 
   const [alertStatus,updatealertStatus] = useState("");
-  
+  let newPomoID = store.getState().addToDB.new_pmodoro_id;
+  let newTaskID = store.getState().addToDB.new_task_id;
+  let DBstatus = store.getState().addToDB.status;
+  const [newptID,setNewptID] = useState(null);  
+
   const addTaskChangeEvent = (field) => {
     updateTaskInfo({ ...taskInfo ,...field });
   };
@@ -32,28 +36,27 @@ function AddTask({showModal, handleModalClose, ...props}) {
   const AddTasktoDB = (pomoInfo,taskInfo) => {
     store.dispatch(addpomoDB(pomoInfo));
     store.subscribe(() => {
-      const newPomoID = {pt_id: store.getState().addToDB.new_pmodoro_id};
-       updateTaskInfo({ ...taskInfo ,...newPomoID });
+      const newPomoID = {pt_id: newPomoID};
+      updateTaskInfo({ ...taskInfo ,...newPomoID });
     });
   }
-
   useEffect(() => { 
-    updatealertStatus(store.getState().addToDB.status);
-  },[store.getState().addToDB.status]);
+    updatealertStatus(DBstatus);
+  },[DBstatus]);
 
   
   useEffect(() => {
-    if(store.getState().addToDB.new_pmodoro_id == null){
-      const newPomoID = {pt_id: store.getState().addToDB.new_pmodoro_id};
-      updateTaskInfo({ ...taskInfo ,...newPomoID });
+    if(newTaskID == null && newPomoID != null){
+    const PomoID = {pt_id: newPomoID};
+    updateTaskInfo({ ...taskInfo ,...PomoID });
+    setNewptID(newPomoID);
     }
-    if(store.getState().addToDB.new_pmodoro_id != null && store.getState().addToDB.new_task_id == null){
-      store.dispatch(addtaskDB(taskInfo));
-    }else{
-      //handleModalClose();
-      store.dispatch(getTasks());
-    }
-}, [store.getState().addToDB.new_pmodoro_id,store.getState().addToDB.new_task_id]);
+}, [newPomoID]);
+
+useEffect(() => {
+  (newPomoID != null && DBstatus == "success") && (store.dispatch(addtaskDB(taskInfo)) && store.dispatch(getTasks())) ;
+}, [newptID]);
+
     return (
 <>
 <Modal show={showModal} onHide={handleModalClose}>

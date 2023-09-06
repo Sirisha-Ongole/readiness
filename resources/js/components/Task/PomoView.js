@@ -6,6 +6,7 @@ import { store } from "../../Redux/store";
 import { zeroPad } from "react-countdown";
 
 export const PomoView = () => {
+    
     const handleResetClick = (tab) => {
         tab.current.getApi();
         tab.current.stop();
@@ -24,17 +25,22 @@ export const PomoView = () => {
 
     filteredPomoDetails = filteredPomoDetails && filteredPomoDetails.map((names, i) => [names[0], names[1] * 60000]);
 
-    console.log(filteredPomoDetails);
+    let cycle_time = filteredPomoDetails ? filteredPomoDetails[0][1] : 0;
+    let short_break_time = filteredPomoDetails ? filteredPomoDetails[2][1] : 0;
+    let long_break_time = filteredPomoDetails ? filteredPomoDetails[1][1] : 0;
+
+
     let tabRef = useRef();
     useEffect(() => {
-        tabRef.current = tabRef.current ?? React.createRef();
-        tabRef.current.getApi();
-        tabRef.current.stop();
+        filteredPomoDetails && 
+        (tabRef.current = tabRef.current ?? React.createRef() ,
+        tabRef.current.getApi(),
+        tabRef.current.stop())
     }, [CurrentTaskDetails]);
 
-    const PomoTimer = () => <Countdown date={Date.now() + 10000} renderer={pomotimeRender} autoStart={false} ref={tabRef} ></Countdown>;
-    const ShortBreak = () => <Countdown date={Date.now() + 10000} renderer={shortBreakRender} autoStart={true} ref={tabRef} ></Countdown>;
-    const LongBreak = () => <Countdown date={Date.now() + 10000} renderer={longBreakRender} autoStart={true} ref={tabRef} ></Countdown>;
+    const PomoTimer = () => <Countdown date={Date.now() + cycle_time} renderer={pomotimeRender} autoStart={false} ref={tabRef} ></Countdown>;
+    const ShortBreak = () => <Countdown date={Date.now() + short_break_time} renderer={shortBreakRender} autoStart={true} ref={tabRef} ></Countdown>;
+    const LongBreak = () => <Countdown date={Date.now() + long_break_time} renderer={longBreakRender} autoStart={true} ref={tabRef} ></Countdown>;
     const pomotimeRender = ({ hours, minutes, seconds, completed }) => {  
         if (completed) {    
             return <ShortBreak />;
@@ -82,8 +88,8 @@ export const PomoView = () => {
     };
 
     return (
-        <>
-                        <div className="container-fluid">
+    <>
+                    {(filteredPomoDetails) ? (<div className="container-fluid">
                             <div className="row">
                                 <div className="col-12">
                                     <h1 className="text-center">{CurrentTaskDetails.body}</h1>
@@ -93,7 +99,7 @@ export const PomoView = () => {
                                 <div className="col-12">
                                     <div className="text-center">
                                         <h1>
-                                        <PomoTimer />
+                                            <PomoTimer />
                                         </h1>
                                     </div>
                                 </div>
@@ -106,7 +112,7 @@ export const PomoView = () => {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>) : ("")}
         </>
     );
     };
