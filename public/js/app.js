@@ -11832,7 +11832,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   MainContainer: () => (/* binding */ MainContainer)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _Task_AddTaskView__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Task/AddTaskView */ "./resources/js/components/Task/AddTaskView.js");
+/* harmony import */ var _Task_TaskView__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Task/TaskView */ "./resources/js/components/Task/TaskView.js");
 /* harmony import */ var _Graph_GraphView__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Graph/GraphView */ "./resources/js/components/Graph/GraphView.js");
 /* harmony import */ var _Task_PomoView__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Task/PomoView */ "./resources/js/components/Task/PomoView.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
@@ -11845,7 +11845,7 @@ __webpack_require__.r(__webpack_exports__);
 var MainContainer = function MainContainer() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
     className: "container-fluid",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Task_PomoView__WEBPACK_IMPORTED_MODULE_3__.PomoView, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Task_AddTaskView__WEBPACK_IMPORTED_MODULE_1__.AddTaskView, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Graph_GraphView__WEBPACK_IMPORTED_MODULE_2__.GraphView, {})]
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Task_PomoView__WEBPACK_IMPORTED_MODULE_3__.PomoView, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Task_TaskView__WEBPACK_IMPORTED_MODULE_1__.TaskView, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Graph_GraphView__WEBPACK_IMPORTED_MODULE_2__.GraphView, {})]
   });
 };
 
@@ -12233,101 +12233,6 @@ var AddTaskPomodoro = function AddTaskPomodoro(_ref) {
 
 /***/ }),
 
-/***/ "./resources/js/components/Task/AddTaskView.js":
-/*!*****************************************************!*\
-  !*** ./resources/js/components/Task/AddTaskView.js ***!
-  \*****************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   AddTaskView: () => (/* binding */ AddTaskView)
-/* harmony export */ });
-/* harmony import */ var _AddTask__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddTask */ "./resources/js/components/Task/AddTask.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Button.js");
-/* harmony import */ var _TaskView__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./TaskView */ "./resources/js/components/Task/TaskView.js");
-/* harmony import */ var _Redux_actionTypes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Redux/actionTypes */ "./resources/js/Redux/actionTypes.js");
-/* harmony import */ var _Redux_store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Redux/store */ "./resources/js/Redux/store.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-
-
-
-
-
-
-
-
-var AddTaskView = function AddTaskView() {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
-    _useState2 = _slicedToArray(_useState, 2),
-    showModal = _useState2[0],
-    updateshowModal = _useState2[1];
-  var handleModalClose = function handleModalClose() {
-    updateshowModal(false);
-    _Redux_store__WEBPACK_IMPORTED_MODULE_4__.store.dispatch({
-      type: _Redux_actionTypes__WEBPACK_IMPORTED_MODULE_3__.DB_TaskandPomo_reset,
-      payload: {}
-    });
-  };
-  var handleShowModal = function handleShowModal() {
-    return updateshowModal(true);
-  };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-      className: "bg-warning",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-        className: "row justify-content-center d-flex",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-          className: "col-sm-12 col-lg-6 p-5",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
-            src: "/images/mainimage.png",
-            alt: "main image",
-            className: "img-fluid img-thumbnail"
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-          className: "col-sm-12 col-lg-6 pe-5",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-            className: "d-flex row ms-5",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-              className: "p-2 col-8 rounded-pill text-center fs-4 fw-bold",
-              children: "Your Tasks List"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-              className: "col-4",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], {
-                variant: "danger",
-                onClick: handleShowModal,
-                className: "btn-lg rounded-pill",
-                children: "Add Task "
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-              className: "col-lg-12 col-md-12 col-sm-12 col-xs-12 overflow-auto",
-              style: {
-                height: '400px'
-              },
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_TaskView__WEBPACK_IMPORTED_MODULE_2__.TaskView, {})
-            })]
-          })
-        })]
-      })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_AddTask__WEBPACK_IMPORTED_MODULE_0__["default"], {
-      showModal: showModal,
-      handleModalClose: handleModalClose,
-      page: "add"
-    })]
-  });
-};
-
-/***/ }),
-
 /***/ "./resources/js/components/Task/PomoView.js":
 /*!**************************************************!*\
   !*** ./resources/js/components/Task/PomoView.js ***!
@@ -12512,16 +12417,16 @@ var PomoView = function PomoView() {
 
 /***/ }),
 
-/***/ "./resources/js/components/Task/TaskView.js":
-/*!**************************************************!*\
-  !*** ./resources/js/components/Task/TaskView.js ***!
-  \**************************************************/
+/***/ "./resources/js/components/Task/TaskListView.js":
+/*!******************************************************!*\
+  !*** ./resources/js/components/Task/TaskListView.js ***!
+  \******************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   TaskView: () => (/* binding */ TaskView)
+/* harmony export */   TaskListView: () => (/* binding */ TaskListView)
 /* harmony export */ });
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Card.js");
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Button.js");
@@ -12545,7 +12450,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var TaskView = function TaskView() {
+var TaskListView = function TaskListView() {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState2 = _slicedToArray(_useState, 2),
     showModal = _useState2[0],
@@ -12614,6 +12519,101 @@ var TaskView = function TaskView() {
       showModal: showModal,
       handleModalClose: handleModalClose,
       page: "edit"
+    })]
+  });
+};
+
+/***/ }),
+
+/***/ "./resources/js/components/Task/TaskView.js":
+/*!**************************************************!*\
+  !*** ./resources/js/components/Task/TaskView.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   TaskView: () => (/* binding */ TaskView)
+/* harmony export */ });
+/* harmony import */ var _AddTask__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddTask */ "./resources/js/components/Task/AddTask.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/esm/Button.js");
+/* harmony import */ var _TaskListView__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./TaskListView */ "./resources/js/components/Task/TaskListView.js");
+/* harmony import */ var _Redux_actionTypes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Redux/actionTypes */ "./resources/js/Redux/actionTypes.js");
+/* harmony import */ var _Redux_store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Redux/store */ "./resources/js/Redux/store.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+
+var TaskView = function TaskView() {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(false),
+    _useState2 = _slicedToArray(_useState, 2),
+    showModal = _useState2[0],
+    updateshowModal = _useState2[1];
+  var handleModalClose = function handleModalClose() {
+    updateshowModal(false);
+    _Redux_store__WEBPACK_IMPORTED_MODULE_4__.store.dispatch({
+      type: _Redux_actionTypes__WEBPACK_IMPORTED_MODULE_3__.DB_TaskandPomo_reset,
+      payload: {}
+    });
+  };
+  var handleShowModal = function handleShowModal() {
+    return updateshowModal(true);
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      className: "bg-warning",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        className: "row justify-content-center d-flex",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+          className: "col-sm-12 col-lg-6 p-5",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
+            src: "/images/mainimage.png",
+            alt: "main image",
+            className: "img-fluid img-thumbnail"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+          className: "col-sm-12 col-lg-6 pe-5",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+            className: "d-flex row ms-5",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+              className: "p-2 col-8 rounded-pill text-center fs-4 fw-bold",
+              children: "Your Tasks List"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+              className: "col-4",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                variant: "danger",
+                onClick: handleShowModal,
+                className: "btn-lg rounded-pill",
+                children: "Add Task "
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+              className: "col-lg-12 col-md-12 col-sm-12 col-xs-12 overflow-auto",
+              style: {
+                height: '400px'
+              },
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_TaskListView__WEBPACK_IMPORTED_MODULE_2__.TaskListView, {})
+            })]
+          })
+        })]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_AddTask__WEBPACK_IMPORTED_MODULE_0__["default"], {
+      showModal: showModal,
+      handleModalClose: handleModalClose,
+      page: "add"
     })]
   });
 };

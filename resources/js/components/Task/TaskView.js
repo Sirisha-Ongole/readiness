@@ -1,54 +1,49 @@
+import AddTask from "./AddTask";
+import React, { useEffect, useState } from 'react'
+import { Button } from 'react-bootstrap'
+import { TaskListView } from "./TaskListView";
+import * as actions from "../../Redux/actionTypes";
+import { store } from "../../Redux/store";
 
-    import { Button, Card, Form } from "react-bootstrap";
-    import React, { useRef, useState, useEffect} from "react";
-    import * as actions from "../../Redux/actions";
-    import { taskSelector, store } from "../../Redux/store";
-    import AddTask from "./AddTask";
-    
-     export const TaskView = () => {
+export const TaskView = () => {
 
-        const [showModal, updateshowModal] = useState(false);
-        const handleModalClose = () => updateshowModal(false);
-        const handleShowModal = () => updateshowModal(true);
+    const [showModal, updateshowModal] = useState(false);
+    const handleModalClose = () => {
+        updateshowModal(false);
+        store.dispatch({
+            type: actions.DB_TaskandPomo_reset,
+            payload: {}
+          });
+    };
+    const handleShowModal = () => updateshowModal(true);
 
-          let [tasklist, updateTasksList] = useState();
-    
-            store.subscribe(() => {
-                updateTasksList(taskSelector(store.getState()));
-            });
-            useEffect(() => {
-                updateTasksList(taskSelector(store.getState()));
-            }, []);
-
-        const cardRef = useRef([]);
-        cardRef.current = tasklist && tasklist.map((tasks,i) => (cardRef.current && cardRef.current[i]) ?? React.createRef());
-            
-            const selectCard = (currentCard,index) => {
-            cardRef.current.map((ref) => ref.current.classList.remove("bg-warning"));
-                currentCard.current.classList.add("bg-warning");
-                actions.setCurrentTaskDetails(index,tasklist);
-            }                
-                return (
-                <>
-                {tasklist &&
-                tasklist.map(
-                    (task,index) =>
-                    <Card ref={cardRef.current[index]} className="mb-3 mt-1" onClick={e => selectCard(cardRef.current[index],index)} style={{ cursor: "pointer" }}>
-                    <Card.Header>{task.data.attributes.body}</Card.Header>
-                    <Card.Body>
-                    <Card.Title>
-                        <Button onClick={handleShowModal}>Edit Task</Button>
-                        <Form><Form.Check type="checkbox" label={`Duration :${task.data.attributes.duration} mins`}/></Form>
-                        </Card.Title>
-                    <Card.Text>
-                        {
-                        task.data.attributes.pomodoro_template.type == 'pomodoro' ? <div className="ms-5">Promodoro Set timings {task.data.attributes.pomodoro_template.attributes.cycle_time} mins</div> : <div></div>
-                        }
-                    </Card.Text>
-                    </Card.Body>
-                </Card>
-                )}
-                <AddTask showModal={showModal} handleModalClose={handleModalClose}  page={"edit"} />
+    return (
+        <>
+            <div className="bg-warning">
+                <div className="row justify-content-center d-flex">
+                    <div className="col-sm-12 col-lg-6 p-5">
+                        <img
+                            src="/images/mainimage.png"
+                            alt="main image"
+                            className="img-fluid img-thumbnail"
+                        />
+                    </div>
+                    <div className="col-sm-12 col-lg-6 pe-5">
+                        <div className="d-flex row ms-5">
+                            <div className="p-2 col-8 rounded-pill text-center fs-4 fw-bold">
+                                Your Tasks List
+                            </div>
+                            <div className="col-4">
+                            <Button variant="danger" onClick={handleShowModal}className="btn-lg rounded-pill">Add Task </Button>
+                            </div>
+                            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 overflow-auto" style={{ height:'400px' }}>
+                                <TaskListView />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <AddTask showModal={showModal} handleModalClose={handleModalClose} page={"add"}  />
         </>
     );
-    };
+};
