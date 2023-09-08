@@ -4,6 +4,10 @@ import { Button,Tab,Tabs} from "react-bootstrap";
 import Countdown from "react-countdown";
 import { store } from "../../Redux/store";
 import { zeroPad } from "react-countdown";
+import { Box } from '@chakra-ui/react';
+import { Center } from '@chakra-ui/react';
+import { SimpleGrid } from '@chakra-ui/react';
+import { Heading } from '@chakra-ui/react';
 
 export const PomoView = () => {
     
@@ -89,30 +93,20 @@ export const PomoView = () => {
 
     return (
     <>
-                    {(filteredPomoDetails) ? (<div className="container-fluid">
-                            <div className="row">
-                                <div className="col-12">
-                                    <h1 className="text-center">{CurrentTaskDetails.body}</h1>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col-12">
-                                    <div className="text-center">
-                                        <h1>
-                                            <PomoTimer />
-                                        </h1>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="col-12">
-                                    <div className="text-center">
-                                    <Button value={0} onClick={(e) => handleStartClick(tabRef)} variant="primary" className="m-2">Start</Button>
-                                    <Button value={0} onClick={(e) => handleResetClick(tabRef)} variant="secondary" className="m-2">Rest</Button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>) : ("")}
+                    {(filteredPomoDetails) ? (
+                    <Box w='100%' startColor='pink.500' endColor='orange.500' bgGradient='linear(to-l, #7928CA, #FF0080)' padding='6'>
+                    <Center>
+                    <SimpleGrid columns={1} spacingY='20px'>
+                    <Heading as='h2' size='3xl'>{CurrentTaskDetails.body}</Heading>
+                        <PomoTimer />
+                        <Box>
+                        <Button value={0} onClick={(e) => handleStartClick(tabRef)} variant="primary" className="m-2">Start</Button>
+                        <Button value={0} onClick={(e) => handleResetClick(tabRef)} variant="secondary" className="m-2">Rest</Button>
+                        </Box>
+                   </SimpleGrid>
+                    </Center>    
+                    </Box>
+                        ) : ("")}
         </>
     );
     };

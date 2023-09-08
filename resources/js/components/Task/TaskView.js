@@ -4,6 +4,7 @@ import { Button } from 'react-bootstrap'
 import { TaskListView } from "./TaskListView";
 import * as actions from "../../Redux/actionTypes";
 import { store } from "../../Redux/store";
+import WordcloudText from "./WordcloudText";
 
 export const TaskView = () => {
 
@@ -19,15 +20,10 @@ export const TaskView = () => {
 
     return (
         <>
-            <div className="bg-warning">
                 <div className="row justify-content-center d-flex">
                     <div className="col-sm-12 col-lg-6 p-5">
-                        <img
-                            src="/images/mainimage.png"
-                            alt="main image"
-                            className="img-fluid img-thumbnail"
-                        />
-                    </div>
+                    <WordcloudText></WordcloudText>
+                       </div>
                     <div className="col-sm-12 col-lg-6 pe-5">
                         <div className="d-flex row ms-5">
                             <div className="p-2 col-8 rounded-pill text-center fs-4 fw-bold">
@@ -42,7 +38,6 @@ export const TaskView = () => {
                         </div>
                     </div>
                 </div>
-            </div>
             <AddTask showModal={showModal} handleModalClose={handleModalClose} page={"add"}  />
         </>
     );

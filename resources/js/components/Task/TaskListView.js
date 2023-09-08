@@ -10,7 +10,14 @@
         const [showModal, updateshowModal] = useState(false);
         const handleModalClose = () => updateshowModal(false);
         const handleShowModal = () => updateshowModal(true);
-
+        
+        const deleteTask = (currentTaskid) => {
+            alert("Are you sure you want to delete this task?");
+            store.dispatch(actions.deleteTask(currentTaskid));
+            if(true){
+                store.dispatch(actions.getTasks());
+            }
+        }
           let [tasklist, updateTasksList] = useState();
     
             store.subscribe(() => {
@@ -37,7 +44,8 @@
                     <Card.Header>{task.data.attributes.body}</Card.Header>
                     <Card.Body>
                     <Card.Title>
-                        <Button onClick={handleShowModal}>Edit Task</Button>
+                        <Button className="ms-3" onClick={handleShowModal}>View Task</Button>
+                        <Button className="ms-3" onClick={(e) => deleteTask(task.data.attributes.task_id)}>Delete</Button>
                         <Form><Form.Check type="checkbox" label={`Duration :${task.data.attributes.duration} mins`}/></Form>
                         </Card.Title>
                     <Card.Text>

@@ -53,6 +53,23 @@ export const addpomoDB = (pomoData) => async () => {
     }
 }
 
+export const deleteTask = (taskID) => async () => {
+    try {
+        const res = await axios.delete(`api/tasks/${taskID}`);
+        store.dispatch({
+            type: actions.Delete_Task,
+            payload: res.data,
+        });
+    } catch(error){
+        store.dispatch({
+            type: actions.Delete_Task_error,
+            payload: {
+                status: error.response,
+            },
+        });
+    }
+}
+
 export const setCurrentTaskDetails = (index, tasklist) => {
     try{
         const res = {

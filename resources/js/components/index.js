@@ -5,6 +5,7 @@ import { MainContainer } from './MainContainer';
 import { store } from '../Redux/store';
 import { Provider } from 'react-redux';
 import { getTasks } from '../Redux/actions';
+import { ChakraProvider } from "@chakra-ui/react";
 
 export default function HelloReact() {
   useEffect(() => {
@@ -14,7 +15,9 @@ export default function HelloReact() {
   return (
     <>
     <Provider store={store}>
+    <ChakraProvider>
     <MainContainer />
+    </ChakraProvider>
     </Provider>
     </>
   );

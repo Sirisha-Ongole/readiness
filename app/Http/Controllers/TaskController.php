@@ -37,4 +37,32 @@ class TaskController extends Controller
     return new TaskResource($task);
 
 }
+//write delete function
+public function delete($id){
+    $task = Task::find($id);
+    $task->delete();
+    return response()->json(['success'=>'Task deleted successfully'], $this-> successStatus); 
+}
+
+//write update function
+public function update(Request $request, $id){
+    $input = json_decode($request->getContent(), true);
+    $validator = Validator::make($input['taskData'], [
+        'pt_id' => 'required',
+        'body' => 'required',
+        'duration' => 'required'
+    ]);
+
+    if($validator->fails()){
+        return  response()->json(['error'=>'Unauthorised'], 401);        
+    }
+
+    $task = Task::find($id);
+    $task->pt_id = $input['taskData']['pt_id'];
+    $task->body = $input['taskData']['body'];
+    $task->duration = $input['taskData']['duration'];
+    $task->save();
+    return response()->json(['success'=>'Task updated successfully'], $this-> successStatus); 
+
+}
 }

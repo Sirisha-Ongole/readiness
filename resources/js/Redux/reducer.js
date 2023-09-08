@@ -67,7 +67,7 @@ switch (type) {
         case actions.Add_Pomo_DB:
         return {
                 ...state,
-                new_pmodoro_id: payload.data.attributes.pmodoro_id, status: "success"
+                new_pmodoro_id: payload.data.attributes.pmodoro_id
             };
         case actions.DB_Task_error :
                 return {

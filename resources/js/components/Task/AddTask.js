@@ -14,9 +14,6 @@ function AddTask({showModal, handleModalClose, ...props}) {
   let DBstatus = store.getState().addToDB.status;
   const [newptID,setNewptID] = useState(null);  
 
-  const addTaskChangeEvent = (field) => {
-    updateTaskInfo({ ...taskInfo ,...field });
-  };
   const [taskInfo, updateTaskInfo] = useState({
       pt_id: "",
       body: "",
@@ -33,28 +30,49 @@ function AddTask({showModal, handleModalClose, ...props}) {
           cycle_count_lb : ""
   });
 
+  const addTaskChangeEvent = (field) => {
+    updateTaskInfo({ ...taskInfo ,...field });
+  };
+
+
   const AddTasktoDB = (pomoInfo,taskInfo) => {
     store.dispatch(addpomoDB(pomoInfo));
     store.subscribe(() => {
-      const newPomoID = {pt_id: newPomoID};
-      updateTaskInfo({ ...taskInfo ,...newPomoID });
+      addTaskChangeEvent({pt_id: newPomoID});
     });
   }
+
   useEffect(() => { 
     updatealertStatus(DBstatus);
+    addTaskChangeEvent({
+      pt_id: "",
+      body: "",
+      duration: "",
+    });  
+    addPomodoroChangeEvent({
+      cycle_time : "",
+      short_break : "",
+      long_break : "",
+      cycle_count_lb : ""
+    });
   },[DBstatus]);
 
-  
+
   useEffect(() => {
+    console.log("TaskInfo", taskInfo);
+    console.log("PomoInfo", pomoInfo);
+    console.log("************************** Status Updated **************");
+  }, [taskInfo]);
+  
+  useEffect(() => {    
     if(newTaskID == null && newPomoID != null){
-    const PomoID = {pt_id: newPomoID};
-    updateTaskInfo({ ...taskInfo ,...PomoID });
-    setNewptID(newPomoID);
+      addTaskChangeEvent({pt_id: newPomoID});
+      setNewptID(newPomoID);
     }
 }, [newPomoID]);
 
 useEffect(() => {
-  (newPomoID != null && DBstatus == "success") && (store.dispatch(addtaskDB(taskInfo)) && store.dispatch(getTasks())) ;
+  (newPomoID != null && DBstatus != "error") && (store.dispatch(addtaskDB(taskInfo)) && store.dispatch(getTasks())) ;
 }, [newptID]);
 
     return (
